@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
 
-    Vector3 velocity;
+    public Vector3 velocity;
     public bool isGrounded;
 
     // Update is called once per frame
