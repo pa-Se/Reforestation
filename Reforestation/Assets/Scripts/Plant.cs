@@ -24,7 +24,7 @@ public class Plant : MonoBehaviour
 
     [Header("Info")]
 
-    Material stemMat;
+    public Material stemMat;
     float growthPercent;
     bool growing;
 
@@ -37,7 +37,10 @@ public class Plant : MonoBehaviour
         growing = true;
 
         stemMat.SetFloat("_GrowthPercent", 0);
-        transform.localScale = Vector3.one * Random.Range(.9f, 1.1f);
+
+
+        //Scale Size of GameObject
+        transform.localScale = Vector3.one * Random.Range(.3f, 0.6f);
 
         for (int i = 0; i < flowers.Length; i++)
         {
@@ -71,7 +74,7 @@ public class Plant : MonoBehaviour
             // Finished growing
             if (!growing)
             {
-                // FindObjectOfType<Garden>().AddPlant(this); wiederherstellen!
+                FindObjectOfType<Garden>().AddPlant(this);
             }
         }
         else

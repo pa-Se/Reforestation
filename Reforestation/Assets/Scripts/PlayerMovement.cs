@@ -15,8 +15,16 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
 
+    public Vector3 move;
+
+    public float smoothMoveTime;
     public Vector3 velocity;
+    Vector3 smoothV;
+
+    public Vector3 throw_force;
+
     public bool isGrounded;
+
 
     // Update is called once per frame
     void Update()
@@ -33,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical"); // W = 1 , S = -1
 
         //WASD-Movement
-        Vector3 move = transform.right * x + transform.forward * z;
+        move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -49,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = 12f;
         }
+
 
         //Gravity
         velocity.y += gravity * Time.deltaTime;

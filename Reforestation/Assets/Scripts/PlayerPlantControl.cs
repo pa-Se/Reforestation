@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,11 @@ public class PlayerPlantControl : MonoBehaviour
     public GameObject plantPrefab;
     public Transform plantHandPos;
 
+    public Animator animator;
 
-    Terrain terrain;
-    PlayerMovement controller;
+
+    public Terrain terrain;
+    public PlayerMovement controller;
 
     Transform cam;
 
@@ -50,7 +53,8 @@ public class PlayerPlantControl : MonoBehaviour
                     break;
                 }
                 Vector3 spawnPos = Random.insideUnitSphere * 20;
-                float terrainHeight = terrain.terrainData.GetHeight((int)spawnPos.x, (int)spawnPos.z);
+                //float terrainHeight = terrain.terrainData.GetHeight((int)spawnPos.x, (int)spawnPos.z);
+                float terrainHeight = terrain.SampleHeight(spawnPos);
                 if (spawnPos.y > terrainHeight)
                 {
                     n++;
@@ -93,11 +97,13 @@ public class PlayerPlantControl : MonoBehaviour
         if (activePlantIndex != -1 && Input.GetMouseButtonDown(0))
         {
             Vector3 spawnPos = plantHandPos.position;
-            float terrainHeight = terrain.terrainData.GetHeight((int)spawnPos.x, (int)spawnPos.z);
+            float terrainHeight = terrain.SampleHeight(spawnPos);
+
             if (spawnPos.y > terrainHeight)
             {
                 var seed = Instantiate(seeds[activePlantIndex], spawnPos, plantHandPos.rotation);
-                seed.Throw(controller.velocity.magnitude);
+                //animator.SetTrigger("Throw");
+                seed.Throw(2f);
                 if (!infiniteSeedMode)
                 {
                     numSeedsByType[activePlantIndex]--;

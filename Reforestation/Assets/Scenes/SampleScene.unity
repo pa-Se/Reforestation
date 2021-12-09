@@ -142,7 +142,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300016, guid: f5df519d22979c248a77eadf5651b327, type: 3}
---- !u!1 &81444247
+--- !u!1 &271393565
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,47 +150,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 81444249}
-  - component: {fileID: 81444248}
-  m_Layer: 0
-  m_Name: Garden
+  - component: {fileID: 271393566}
+  - component: {fileID: 271393567}
+  m_Layer: 3
+  m_Name: PlantMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &81444248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81444247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9498289d46614b841908e700d330ff76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundsSize: 1783.57
-  numDivisions: 145
-  testX: 0
-  testY: 0
-  test: {fileID: 0}
-  gizmosOnlyWhenSelected: 0
---- !u!4 &81444249
+--- !u!4 &271393566
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81444247}
+  m_GameObject: {fileID: 271393565}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 729.3, y: 86, z: 693.4}
+  m_LocalPosition: {x: 571, y: 25, z: 343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1571610198}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &271393567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271393565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9498289d46614b841908e700d330ff76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundsSize: 3000
+  numDivisions: 80
+  testX: 0
+  testY: 0
+  test: {fileID: 0}
+  gizmosOnlyWhenSelected: 1
 --- !u!1001 &692749292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,7 +479,10 @@ MonoBehaviour:
     m_Bits: 8
   speed: 12
   gravity: -29.43
+  move: {x: 0, y: 0, z: 0}
+  smoothMoveTime: 0
   velocity: {x: 0, y: 0, z: 0}
+  throw_force: {x: 0, y: 0, z: 0}
   isGrounded: 0
 --- !u!143 &1058264395
 CharacterController:
@@ -529,12 +532,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6146891e10bc54488bb76a9d1272daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteSeedMode: 0
+  infiniteSeedMode: 1
   debug_autoPlantSeeds: 0
   seeds:
   - {fileID: -2632739309998454020, guid: ccd091c0e6076794a8277e64cfbf982a, type: 3}
+  - {fileID: -8645194420163290770, guid: 54d6dfced2236914facd5fdc71a1b590, type: 3}
   plantPrefab: {fileID: 0}
-  plantHandPos: {fileID: 1332809544}
+  plantHandPos: {fileID: 2070013991}
+  animator: {fileID: 1949340497}
+  terrain: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1 &1121107648
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332809544}
   m_Layer: 0
-  m_Name: Hand
+  m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,6 +600,7 @@ Transform:
   m_LocalScale: {x: 0.07943624, y: 0.07943624, z: 0.07943624}
   m_Children:
   - {fileID: 1949340496}
+  - {fileID: 2070013991}
   m_Father: {fileID: 1058264396}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -0.346, y: 138.784, z: -0.599}
@@ -754,7 +762,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 271393566}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -883,6 +892,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003754887}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2070013990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2070013991}
+  m_Layer: 0
+  m_Name: Handposition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2070013991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070013990}
+  m_LocalRotation: {x: -0.009137738, y: 0.8738866, z: 0.0052778753, w: -0.4860153}
+  m_LocalPosition: {x: -12.300288, y: -0.0000005067032, z: 11.999841}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1332809544}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -0.02, y: 238.162, z: -1.209}
 --- !u!1 &2082926154
 GameObject:
   m_ObjectHideFlags: 0

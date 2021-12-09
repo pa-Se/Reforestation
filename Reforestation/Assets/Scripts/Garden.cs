@@ -39,23 +39,6 @@ public class Garden : MonoBehaviour
         cells[cellX, cellY].Add(plant);
     }
 
-    public Plant GetNearbyPlant(Vector3 pos)
-    {
-        float posX = pos.x;
-        float posY = pos.z;
-        float cellSize = boundsSize / numDivisions;
-        int cellX = Mathf.Clamp((int)((posX + boundsSize / 2) / cellSize), 0, numDivisions - 1);
-        int cellY = Mathf.Clamp((int)((posY + boundsSize / 2) / cellSize), 0, numDivisions - 1);
-        var plants = cells[cellX, cellY];
-
-        int numPlants = plants.Count;
-        if (numPlants == 0)
-        {
-            return null;
-        }
-        return plants[Random.Range(0, numPlants)];
-    }
-
     void DrawGizmos()
     {
 
@@ -83,9 +66,9 @@ public class Garden : MonoBehaviour
 
     void DrawProjectedLineGizmo(Vector3 a, Vector3 b)
     {
-        float height = 0.1f;
-        float h1 = Terrain.activeTerrain.terrainData.GetHeight((int)a.x, (int)a.z + (int)height);
-        float h2 = Terrain.activeTerrain.terrainData.GetHeight((int)b.x, (int)b.z + (int)height);
+        float h1 = Terrain.activeTerrain.SampleHeight(a);
+        float h2 = Terrain.activeTerrain.SampleHeight(b);
+
         Gizmos.DrawLine(new Vector3(a.x, h1, a.z), new Vector3(b.x, h2, b.z));
     }
 
