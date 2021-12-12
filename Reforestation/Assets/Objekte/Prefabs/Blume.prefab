@@ -52,8 +52,9 @@ MonoBehaviour:
   flowers:
   - {fileID: 6773228849686346499}
   flowerStartGrowTime:
-  - 0.02821833
+  - 0.1
   stemMat: {fileID: 0}
+  growthPercent: 0
 --- !u!1001 &3417938666668612802
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class Seed : MonoBehaviour
         {
             //Vector3 terrainUp = new Vector3(transform.position.x, transform.position.z, transform.position.y); //propably wrong
 
-            float angle = Random.value * Mathf.PI * 2;
+            float angle = Random.value * Mathf.PI * 10;
             var plantRot = Quaternion.LookRotation(new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)), new Vector3());
             Instantiate(plantPrefab, new Vector3(transform.position.x, terrainHeight, transform.position.z), plantRot);
             Destroy(gameObject);

@@ -103,7 +103,7 @@ public class PlayerPlantControl : MonoBehaviour
             {
                 var seed = Instantiate(seeds[activePlantIndex], spawnPos, plantHandPos.rotation);
                 //animator.SetTrigger("Throw");
-                seed.Throw(2f);
+                seed.Throw(5f);
                 if (!infiniteSeedMode)
                 {
                     numSeedsByType[activePlantIndex]--;

@@ -16,16 +16,15 @@ public class Plant : MonoBehaviour
 
 
 
-    [Header("Baked Data")]
     public Transform[] flowers;
     public float[] flowerStartGrowTime;
 
 
 
-    [Header("Info")]
+
 
     public Material stemMat;
-    float growthPercent;
+    public float growthPercent;
     bool growing;
 
 
@@ -40,7 +39,7 @@ public class Plant : MonoBehaviour
 
 
         //Scale Size of GameObject
-        transform.localScale = Vector3.one * Random.Range(.3f, 0.6f);
+        transform.localScale = Vector3.one * Random.Range(0.2f, .3f);
 
         for (int i = 0; i < flowers.Length; i++)
         {
