@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: -8210244245600328668}
   m_Layer: 0
   m_Name: Blume
-  m_TagString: Untagged
+  m_TagString: Rose
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

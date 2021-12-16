@@ -311,12 +311,14 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/FlowerCounter.cs"
 "Assets/Scripts/Garden.cs"
 "Assets/Scripts/MouseLook.cs"
 "Assets/Scripts/Plant.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/PlayerPlantControl.cs"
 "Assets/Scripts/Seed.cs"
+"Assets/Scripts/TreeCounter.cs"
 -langversion:8.0
 
 /deterministic
