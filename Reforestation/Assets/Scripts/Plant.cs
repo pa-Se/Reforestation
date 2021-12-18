@@ -14,6 +14,10 @@ public class Plant : MonoBehaviour
     public float growTime = 2;
     public float flowerGrowTime = 1;
 
+    public float scaleFactor;
+
+
+
 
 
     public Transform[] flowers;
@@ -39,7 +43,7 @@ public class Plant : MonoBehaviour
 
 
         //Scale Size of GameObject
-        transform.localScale = Vector3.one * Random.Range(0.2f, .3f);
+        transform.localScale = Vector3.one * Random.Range(0.2f, .3f) * scaleFactor;
 
         for (int i = 0; i < flowers.Length; i++)
         {

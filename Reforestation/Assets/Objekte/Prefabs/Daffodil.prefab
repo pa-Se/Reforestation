@@ -49,6 +49,7 @@ MonoBehaviour:
   stem: {fileID: 6238677469327656097}
   growTime: 2
   flowerGrowTime: 1
+  scaleFactor: 1
   flowers:
   - {fileID: 376786212562435089}
   - {fileID: 6436998080341456251}

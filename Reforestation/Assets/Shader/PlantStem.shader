@@ -34,6 +34,7 @@ SubShader {
     fixed4 _Color;
     float _GrowthPercent;
 
+    //Surface Function _ IN = Structure Input
 
     void surf (Input IN, inout SurfaceOutputStandard o) {
         float l = length(mul(unity_CameraInvProjection, float4(1,1,0,1)).xyz) * _ProjectionParams.y;
@@ -48,8 +49,9 @@ SubShader {
         o.Smoothness = 0;
         o.Alpha = c.a;
         
-        float amountHidden = 1-saturate(_GrowthPercent);
-        clip(1-IN.uv_MainTex.y - amountHidden);
+        // Growth_Percent grows --> amountHidden gets smaller and smaller; uv = texture coordinates
+        float amountHidden = 1-saturate(_GrowthPercent); //saturate cramps input to value 0-1
+        clip(IN.uv_MainTex.x - amountHidden); //discards the current pixel if the specified value is less than zero
      
         
         // Screen-door transparency: Discard pixel if below threshold.
@@ -62,7 +64,7 @@ SubShader {
         float4x4 _RowAccess = { 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1 };
         float2 pos = IN.screenPos.xy / IN.screenPos.w;
         pos *= _ScreenParams.xy; // pixel position
-        clip(fade - thresholdMatrix[fmod(pos.x, 4)] * _RowAccess[fmod(pos.y, 4)]);
+        //clip(fade - thresholdMatrix[fmod(pos.x, 4)] * _RowAccess[fmod(pos.y, 4)]);
         
     }
 ENDCG

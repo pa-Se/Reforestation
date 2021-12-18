@@ -1213,7 +1213,6 @@ MonoBehaviour:
   infiniteSeedMode: 1
   debug_autoPlantSeeds: 0
   seeds:
-  - {fileID: -2632739309998454020, guid: ccd091c0e6076794a8277e64cfbf982a, type: 3}
   - {fileID: -8645194420163290770, guid: 54d6dfced2236914facd5fdc71a1b590, type: 3}
   - {fileID: -8645194420163290770, guid: ad1e2b2a065d51c4e927ab7479674838, type: 3}
   plantPrefab: {fileID: 0}
