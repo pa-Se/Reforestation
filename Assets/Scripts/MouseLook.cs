@@ -8,7 +8,7 @@ public class MouseLook : MonoBehaviour
     public Transform playerBody;
 
     //Rotation around x
-    float xRotation = 0f;
+    float xRotation = 20f;
 
 
     // Start is called before the first frame update
@@ -16,6 +16,7 @@ public class MouseLook : MonoBehaviour
     {
         //Locks MouseCursor if Cursor is offscreen
         Cursor.lockState = CursorLockMode.Locked;
+
 
     }
 

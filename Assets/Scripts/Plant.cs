@@ -29,7 +29,7 @@ public class Plant : MonoBehaviour
 
     public Material stemMat;
     public float growthPercent;
-    bool growing;
+    public bool growing;
 
 
 
@@ -43,11 +43,11 @@ public class Plant : MonoBehaviour
 
 
         //Scale Size of GameObject
-        transform.localScale = Vector3.one * Random.Range(0.2f, .3f) * scaleFactor;
+        transform.localScale = Vector3.one * Random.Range(0.2f, .3f);
 
         for (int i = 0; i < flowers.Length; i++)
         {
-            flowers[i].localScale = Vector3.zero;
+            flowers[i].localScale = Vector3.zero * scaleFactor;
         }
 
 
