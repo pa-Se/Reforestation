@@ -4,36 +4,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClothPlant : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class ClothPlant : MonoBehaviour {
 
+    //wird benötigt um Animationen zu rendern, deren Objekte sich durch Gelenke verbiegen können
     public SkinnedMeshRenderer mesh;
     public Plant plant;
 
     float blendOne = 100f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
+    //Wird vor dem allerersten Frame-Update aufgerufen.
+    void Start() {
         mesh.SetBlendShapeWeight(0, blendOne);
-
-
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (!plant.growing && blendOne > 5.0f)
-        {
+    //Update wird einmal pro Frame aufgerufen
+    void Update() {
+        //Wenn Pflanzenwachstum abgeschlossen ist
+        if (!plant.growing && blendOne > 5.0f) {
             mesh.SetBlendShapeWeight(0, blendOne);
             blendOne -= 0.025f;
-
         }
-
-
-
     }
 }

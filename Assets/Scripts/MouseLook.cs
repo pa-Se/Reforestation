@@ -2,40 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class MouseLook : MonoBehaviour {
     public float mouseSensitivity = 100f;
     public Transform playerBody;
 
-    //Rotation around x
+    //Rotation um die X-Achse
     float xRotation = 20f;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Locks MouseCursor if Cursor is offscreen
+    //Wird vor dem allerersten Frame-Update aufgerufen.
+    void Start() {
+        //Lockt den Cursor der Maus, sollte er offscreen sein. Wenn locked, dann befindet er sich im Zentrum des Views und kann nicht verschoben werden.
         Cursor.lockState = CursorLockMode.Locked;
-
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //Update wird einmal pro Frame aufgerufen
+    void Update() { 
 
+        //horizontale Fortbewegung
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
+        //vertikale Fortbewegung
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-
-        //Every frame x-Rotation gets decreased based on Mouse-Y parameter
+        //Bei jedem Frame wird die xRotation verringert, je nach derzeitiger vertikaler Fortbewegung.
+        //-> Wert der Bewegung nach rechts oder links wird von der Rotation abgezogen, sollte sich der Spieler drehen.
         xRotation -= mouseY;
 
-        //Prevents overrotating the Camera
-
+        //Verhindert, dass sich der Spieler bzw. die Kamera zu schnell um die eigene Achse dreht
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // (x,y,z)
         playerBody.Rotate(Vector3.up * mouseX);
-
     }
 }

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class PlayerMovement : MonoBehaviour {
 
     public CharacterController controller;
     public Transform groundCheck;
@@ -25,41 +25,43 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isGrounded;
 
+    //Update wird einmal pro Frame aufgerufen
+    void Update() {
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        //Überprüfung, ob sich der Spieler auf dem Boden befindet
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && velocity.y < 0)
-        {
+        if (isGrounded && velocity.y < 0) {
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal"); // A = -1 , D = 1
-        float z = Input.GetAxis("Vertical"); // W = 1 , S = -1
+        //Horizontale Bewegung mit A = -1, D = 1
+        float x = Input.GetAxis("Horizontal");
 
-        //WASD-Movement
+        //Vertikale Bewegung mit W = 1, S = -1
+        float z = Input.GetAxis("Vertical");
+
+        //WASD-Bewegung des Spielers
         move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
+        //Wenn Leertaste gedrückt ist und Spieler am Boden ist, springe
+        if (Input.GetButtonDown("Jump") && isGrounded) {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        if (Input.GetKey("left shift") && isGrounded)
-        {
+        //Erhöhe Geschwindigkeit wenn Shift-Taste gedrückt wird und Spieler am Boden ist
+        if (Input.GetKey("left shift") && isGrounded) {
             speed = 20f;
         }
-        else
-        {
+
+        //sonst setze Normalgeschwindigkeit
+        else {
             speed = 12f;
         }
 
 
-        //Gravity
+        //Schwerkraft
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }

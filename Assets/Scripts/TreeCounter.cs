@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TreeCounter : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class TreeCounter : MonoBehaviour {
     public Text treeText;
 
-    // Update is called once per frame
-    void Update()
-    {
+    //Update wird einmal pro Frame aufgerufen
+    void Update() {
+        //suche alle Objekte mit dem Tag "Tree", zähle sie und ersetze den Text des Counters
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
         int treeCount = trees.Length;
         treeText.text = treeCount.ToString();

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPlantControl : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class PlayerPlantControl : MonoBehaviour {
 
     [Header("Plant Settings")]
     public bool infiniteSeedMode;
@@ -29,34 +29,29 @@ public class PlayerPlantControl : MonoBehaviour
     KeyCode[] numberKeys = new KeyCode[] { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9 };
     public event System.Action<string, int> onPlantTypeSwitched;
 
-    void Start()
-    {
+    //Wird vor dem allerersten Frame-Update aufgerufen.
+    void Start() {
         terrain = FindObjectOfType<Terrain>();
         cam = Camera.main.transform;
         controller = FindObjectOfType<PlayerMovement>();
 
-        if (!Application.isEditor)
-        {
+        if (!Application.isEditor) {
             //infiniteSeedMode = false;
         }
 
         numSeedsByType = new int[seeds.Length];
 
         // TEST:
-        if (debug_autoPlantSeeds)
-        {
+        if (debug_autoPlantSeeds) {
             int n = 0;
-            for (int i = 0; i < 100; i++)
-            {
-                if (n > 30)
-                {
+            for (int i = 0; i < 100; i++) {
+                if (n > 30) {
                     break;
                 }
                 Vector3 spawnPos = Random.insideUnitSphere * 20;
                 //float terrainHeight = terrain.terrainData.GetHeight((int)spawnPos.x, (int)spawnPos.z);
                 float terrainHeight = terrain.SampleHeight(spawnPos);
-                if (spawnPos.y > terrainHeight)
-                {
+                if (spawnPos.y > terrainHeight) {
                     n++;
                     Instantiate(seeds[0], spawnPos, plantHandPos.rotation);
                 }
@@ -64,26 +59,19 @@ public class PlayerPlantControl : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
+    //Update wird einmal pro Frame aufgerufen
+    void Update() {
         HandlePlantInput();
-
     }
 
-    void HandlePlantInput()
-    {
+    void HandlePlantInput() {
         int plantIndexOld = activePlantIndex;
-        // Switch plant type:
-        for (int i = 0; i < seeds.Length; i++)
-        {
-            if (Input.GetKeyDown(numberKeys[i]))
-            {
-                if (numSeedsByType[i] > 0 || infiniteSeedMode)
-                {
+        // Switch plant type
+        for (int i = 0; i < seeds.Length; i++) {
+            if (Input.GetKeyDown(numberKeys[i])) {
+                if (numSeedsByType[i] > 0 || infiniteSeedMode) {
                     activePlantIndex = (activePlantIndex == i) ? -1 : i; // if already in this slot exit plant mode, otherwise switch
-                    if (activePlantIndex != -1 && onPlantTypeSwitched != null)
-                    {
+                    if (activePlantIndex != -1 && onPlantTypeSwitched != null) {
                         onPlantTypeSwitched(seeds[i].plantPrefab.plantName, numSeedsByType[i]);
                     }
                 }
@@ -94,21 +82,17 @@ public class PlayerPlantControl : MonoBehaviour
         bool plantModeBecameActiveThisFrame = activePlantIndex != -1 && plantIndexOld == -1;
         bool plantModeBecameInactiveThisFrame = activePlantIndex == -1 && plantIndexOld != -1;
 
-        if (activePlantIndex != -1 && Input.GetMouseButtonDown(0))
-        {
+        if (activePlantIndex != -1 && Input.GetMouseButtonDown(0)) {
             Vector3 spawnPos = plantHandPos.position;
             float terrainHeight = terrain.SampleHeight(spawnPos);
 
-            if (spawnPos.y > terrainHeight)
-            {
+            if (spawnPos.y > terrainHeight) {
                 var seed = Instantiate(seeds[activePlantIndex], spawnPos, plantHandPos.rotation);
                 //animator.SetTrigger("Throw");
                 seed.Throw(5f);
-                if (!infiniteSeedMode)
-                {
+                if (!infiniteSeedMode) {
                     numSeedsByType[activePlantIndex]--;
-                    if (numSeedsByType[activePlantIndex] == 0)
-                    {
+                    if (numSeedsByType[activePlantIndex] == 0) {
                         activePlantIndex = -1;
                     }
                 }

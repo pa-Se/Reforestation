@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Garden : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class Garden : MonoBehaviour {
     public float boundsSize = 10;
     public int numDivisions = 10;
     List<Plant>[,] cells;
@@ -15,20 +15,17 @@ public class Garden : MonoBehaviour
 
     public bool gizmosOnlyWhenSelected;
 
-    void Start()
-    {
+    //Wird vor dem allerersten Frame-Update aufgerufen.
+    void Start() {
         cells = new List<Plant>[numDivisions, numDivisions];
-        for (int i = 0; i < numDivisions; i++)
-        {
-            for (int j = 0; j < numDivisions; j++)
-            {
+        for (int i = 0; i < numDivisions; i++) {
+            for (int j = 0; j < numDivisions; j++) {
                 cells[i, j] = new List<Plant>();
             }
         }
     }
 
-    public void AddPlant(Plant plant)
-    {
+    public void AddPlant(Plant plant) {
         float posX = plant.transform.position.x;
         float posY = plant.transform.position.z;
 
@@ -39,9 +36,7 @@ public class Garden : MonoBehaviour
         cells[cellX, cellY].Add(plant);
     }
 
-    void DrawGizmos()
-    {
-
+    void DrawGizmos() {
         Gizmos.color = Color.yellow;
         //Gizmos.DrawWireCube (Vector3.up * transform.position.y, new Vector3 (boundsSize, 0, boundsSize));
         Vector3 topLeft = Vector3.left * boundsSize / 2 + Vector3.forward * -boundsSize / 2 + Vector3.up * transform.position.y;
@@ -64,26 +59,21 @@ public class Garden : MonoBehaviour
         }
     }
 
-    void DrawProjectedLineGizmo(Vector3 a, Vector3 b)
-    {
+    void DrawProjectedLineGizmo(Vector3 a, Vector3 b) {
         float h1 = Terrain.activeTerrain.SampleHeight(a);
         float h2 = Terrain.activeTerrain.SampleHeight(b);
 
         Gizmos.DrawLine(new Vector3(a.x, h1, a.z), new Vector3(b.x, h2, b.z));
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (gizmosOnlyWhenSelected)
-        {
+    void OnDrawGizmosSelected() {
+        if (gizmosOnlyWhenSelected) {
             DrawGizmos();
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (!gizmosOnlyWhenSelected)
-        {
+    void OnDrawGizmos() {
+        if (!gizmosOnlyWhenSelected) {
             DrawGizmos();
         }
     }

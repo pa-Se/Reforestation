@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : MonoBehaviour
-{
+//jedes Unity-Script erbt von der Klasse MonoBehaviour
+public class Plant : MonoBehaviour {
 
     public enum PlantType { Flower, Tree }
     public PlantType plantType;
 
     public string plantName;
+
+
     public MeshRenderer stem;
 
     public float growTime = 2;
@@ -16,56 +18,41 @@ public class Plant : MonoBehaviour
 
     public float scaleFactor;
 
-
-
-
-
     public Transform[] flowers;
     public float[] flowerStartGrowTime;
-
-
-
-
 
     public Material stemMat;
     public float growthPercent;
     public bool growing;
 
-
-
-    void Start()
-    {
+    //Wird vor dem allerersten Frame-Update aufgerufen.
+    void Start(){
         stemMat = stem.material;
 
         growing = true;
 
         stemMat.SetFloat("_GrowthPercent", 0);
 
-
-        //Scale Size of GameObject
+        //Skalieren der Pflanze
         transform.localScale = Vector3.one * Random.Range(0.2f, .3f);
 
-        for (int i = 0; i < flowers.Length; i++)
-        {
+        for (int i = 0; i < flowers.Length; i++) {
             flowers[i].localScale = Vector3.zero * scaleFactor;
         }
-
-
     }
 
-    void Update()
-    {
-        if (growing)
-        {
+    //Update wird einmal pro Frame aufgerufen
+    void Update() {
+        //Solange die Pflanze wächst...
+        if (growing) {
+            //Berechne um wieviel die Pflanze bereits gewachsen ist.
             growthPercent += Time.deltaTime / growTime;
             stemMat.SetFloat("_GrowthPercent", growthPercent);
 
-            // stop growing once growthPercent exceeds 1 (unless flowers are still growing -- handled in loop)
+            //Stoppe Pflanzenwachsum wenn growthPercent 1 überschreitet, ansonsten wächst sie weiter (growing = true).
             growing = growthPercent < 1;
-            for (int i = 0; i < flowers.Length; i++)
-            {
-                if (growthPercent > flowerStartGrowTime[i])
-                {
+            for (int i = 0; i < flowers.Length; i++) {
+                if (growthPercent > flowerStartGrowTime[i]) {
                     flowers[i].localScale = Vector3.MoveTowards(flowers[i].localScale, Vector3.one, Time.deltaTime / flowerGrowTime);
                     if (flowers[i].localScale != Vector3.one)
                     {
@@ -74,42 +61,33 @@ public class Plant : MonoBehaviour
                 }
             }
 
-            // Finished growing
-            if (!growing)
-            {
+            //Wenn sie mit dem Wachsen fertig ist und füge sie zum Garten hinzu.
+            if (!growing) {
                 FindObjectOfType<Garden>().AddPlant(this);
             }
-        }
-        else
-        {
         }
     }
 
     [ContextMenu("Bake Flower Calculation")]
-    public void PrecalculateFlowerGrowTimes()
-    {
-        // Get flower/leaf objects that should be 'grown' (scaled) as stem appears
+    public void PrecalculateFlowerGrowTimes() {
+        //Lade Blüten- bzw. Blätter-Objekte, die wachsen sollen bzw. skaliert werden müssen, sobald der Stiel erscheint
         flowers = new Transform[stem.transform.childCount];
-        for (int i = 0; i < flowers.Length; i++)
-        {
+        for (int i = 0; i < flowers.Length; i++) {
             flowers[i] = stem.transform.GetChild(i);
             flowers[i].localScale = Vector3.one;
         }
 
-        // Figure out where along stem the leaves/flowers appear
+        //Berechne, wo am Stiel die Blüten oder Blätter während des Wachstums sitzen sollen
         flowerStartGrowTime = new float[flowers.Length];
         Mesh stemMesh = stem.gameObject.GetComponent<MeshFilter>().sharedMesh;
-        for (int flowerIndex = 0; flowerIndex < flowers.Length; flowerIndex++)
-        {
+        for (int flowerIndex = 0; flowerIndex < flowers.Length; flowerIndex++) {
             Vector3 flowerPos = flowers[flowerIndex].position;
             float closestDst = float.MaxValue;
             int closestVertIndex = 0;
-            for (int vertIndex = 0; vertIndex < stemMesh.vertices.Length; vertIndex++)
-            {
+            for (int vertIndex = 0; vertIndex < stemMesh.vertices.Length; vertIndex++) {
                 Vector3 vertWorld = stem.transform.TransformPoint(stemMesh.vertices[vertIndex]);
                 float sqrDst = (vertWorld - flowerPos).sqrMagnitude;
-                if (sqrDst < closestDst)
-                {
+                if (sqrDst < closestDst) {
                     closestDst = sqrDst;
                     closestVertIndex = vertIndex;
                 }
@@ -117,7 +95,5 @@ public class Plant : MonoBehaviour
             float startGrowingTime = stemMesh.uv[closestVertIndex].y;
             flowerStartGrowTime[flowerIndex] = startGrowingTime;
         }
-
     }
-
 }
