@@ -20,7 +20,7 @@ public class ClothPlant : MonoBehaviour {
 
     //Update wird einmal pro Frame aufgerufen
     void Update() {
-        //Wenn Pflanzenwachstum abgeschlossen ist
+        //Wenn Pflanzenwachstum abgeschlossen ist, dann öffne die Blüte
         if (!plant.growing && blendOne > 5.0f) {
             mesh.SetBlendShapeWeight(0, blendOne);
             blendOne -= 0.025f;

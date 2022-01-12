@@ -64,13 +64,14 @@ public class PlayerPlantControl : MonoBehaviour {
         HandlePlantInput();
     }
 
+    //Zum Wechseln zwischen den verschiedenen Samen/Pflanzen und Werfen der Samen
     void HandlePlantInput() {
         int plantIndexOld = activePlantIndex;
-        // Switch plant type
+        //Wechsel der Samen
         for (int i = 0; i < seeds.Length; i++) {
             if (Input.GetKeyDown(numberKeys[i])) {
                 if (numSeedsByType[i] > 0 || infiniteSeedMode) {
-                    activePlantIndex = (activePlantIndex == i) ? -1 : i; // if already in this slot exit plant mode, otherwise switch
+                    activePlantIndex = (activePlantIndex == i) ? -1 : i; //Wenn die Pflanzenart bereits ausgewählt ist, exit plant-mode, sonst zu anderer Pflanzenart wechseln
                     if (activePlantIndex != -1 && onPlantTypeSwitched != null) {
                         onPlantTypeSwitched(seeds[i].plantPrefab.plantName, numSeedsByType[i]);
                     }
@@ -82,6 +83,7 @@ public class PlayerPlantControl : MonoBehaviour {
         bool plantModeBecameActiveThisFrame = activePlantIndex != -1 && plantIndexOld == -1;
         bool plantModeBecameInactiveThisFrame = activePlantIndex == -1 && plantIndexOld != -1;
 
+        //Werfen
         if (activePlantIndex != -1 && Input.GetMouseButtonDown(0)) {
             Vector3 spawnPos = plantHandPos.position;
             float terrainHeight = terrain.SampleHeight(spawnPos);
