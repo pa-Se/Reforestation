@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //jedes Unity-Script erbt von der Klasse MonoBehaviour
-public class MouseLook : MonoBehaviour {
-    public float mouseSensitivity = 100f;
+public class MouseLook : MonoBehaviour
+{
+    public float mouseSensitivity = 120f;
     public Transform playerBody;
 
     //Rotation um die X-Achse
     float xRotation = 20f;
 
     //Wird vor dem allerersten Frame-Update aufgerufen.
-    void Start() {
+    void Start()
+    {
         //Lockt den Cursor der Maus, sollte er offscreen sein. Wenn locked, dann befindet er sich im Zentrum des Views und kann nicht verschoben werden.
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     //Update wird einmal pro Frame aufgerufen
-    void Update() { 
+    void Update()
+    {
 
         //horizontale Fortbewegung
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

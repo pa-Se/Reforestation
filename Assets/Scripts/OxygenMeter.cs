@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //jedes Unity-Script erbt von der Klasse MonoBehaviour
-public class OxygenMeter : MonoBehaviour {
+public class OxygenMeter : MonoBehaviour
+{
     public Text percentageText;
 
     private double flowerPercentage = 0.05;
@@ -13,23 +14,35 @@ public class OxygenMeter : MonoBehaviour {
     private double currentPercentage;
 
     //Update wird einmal pro Frame aufgerufen
-    void Update()  {
-        if (currentPercentage < 21) {
-            //suche alle Objekte mit dem Tag "Daffodil" und "Rose", zähle sie
+    void Update()
+    {
+        if (currentPercentage < 21)
+        {
+            //suche alle Objekte mit dem Tag "Daffodil" und "Rose", zï¿½hle sie
             List<GameObject> flowers = new List<GameObject>(GameObject.FindGameObjectsWithTag("Daffodil"));
             flowers.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("Rose")));
             int flowerCount = flowers.Count;
 
-            //suche alle Objekte mit dem Tag "Tree", zähle sie
+            //suche alle Objekte mit dem Tag "Tree", zï¿½hle sie
             GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
             int treeCount = trees.Length;
 
-            //Berechnung der aktuellen Sauerstoffsättigung
+            //Berechnung der aktuellen Sauerstoffsï¿½ttigung
             currentPercentage = flowerCount * flowerPercentage + treeCount * treePercentage;
             percentageText.text = currentPercentage.ToString() + "%";
         }
-        else {
+        else
+        {
             percentageText.text = goalPercentage.ToString() + "%"; //Wenn bereits 21% erreicht sind, dann zeige immer 21% an.
         }
     }
+
+
+
+
+    public double getCurrentPercentage()
+    {
+        return currentPercentage;
+    }
+
 }
