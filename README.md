@@ -1,5 +1,5 @@
 # Reforestation
-Universitiy Project 5th. Semester with Unity-Engine
+University Project 5th. Semester with Unity-Engine
 
 
 
